@@ -1,0 +1,17 @@
+export const slides = [
+  { id: 'cover', number: '01', label: 'Cover' },
+  { id: 'overview', number: '02', label: 'Tujuan' },
+  { id: 'dashboard', number: '03', label: 'Dashboard' },
+  { id: 'pos', number: '04', label: 'POS / Kasir' },
+  { id: 'inventory', number: '05', label: 'Produk & Inventory' },
+  { id: 'gypsum-products', number: '06', label: 'Produk Gypsum' },
+  { id: 'damaged-stock', number: '07', label: 'Stok Rusak' },
+  { id: 'purchasing', number: '08', label: 'Pembelian' },
+  { id: 'receivables', number: '09', label: 'Piutang' },
+  { id: 'delivery', number: '10', label: 'Pengiriman' },
+  { id: 'reports', number: '11', label: 'Laporan' },
+  { id: 'deployment', number: '12', label: 'Deployment' },
+  { id: 'features', number: '13', label: 'Optional Features' },
+  { id: 'pricing', number: '14', label: 'Estimasi' },
+  { id: 'closing', number: '15', label: 'Closing' },
+]
