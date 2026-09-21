@@ -16,7 +16,7 @@ export default function DeckNavigation({
         <span />
       </div>
 
-      <aside className="deck-nav" aria-label="Navigasi slide">
+      <nav className="deck-nav" aria-label="Navigasi slide">
         <button className="nav-button" onClick={onPrevious} disabled={activeIndex === 0} aria-label="Slide sebelumnya">
           <ArrowIcon direction="up" />
         </button>
@@ -39,7 +39,7 @@ export default function DeckNavigation({
           <span className="present-icon" aria-hidden="true">⌗</span>
           {isFullscreen ? 'Exit' : 'Present'}
         </button>
-      </aside>
+      </nav>
 
       <div className="mobile-nav" aria-label="Navigasi slide mobile">
         <button onClick={onPrevious} disabled={activeIndex === 0} aria-label="Slide sebelumnya"><ArrowIcon direction="up" /></button>

@@ -1,4 +1,5 @@
 @import './components.css';
+@import './presentation.css';
 
 :root {
   --paper: #f7f6f2;

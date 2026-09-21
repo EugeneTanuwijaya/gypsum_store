@@ -37,7 +37,7 @@ export default function Slides({ activeId, registerSlide }) {
             <div className="cover-meta reveal"><span>15 slides</span><i /><span>Proposal Sistem</span><i /><span>2026</span></div>
           </div>
           <div className="cover-visual reveal">
-            <div className="hero-image" role="img" aria-label="Interior toko material dengan lembar gypsum yang tertata rapi" />
+            <img className="hero-image" src="/images/gypsum-store-hero.webp" width="1200" height="1500" loading="eager" alt="Interior toko material dengan lembar gypsum yang tertata rapi" />
             <div className="hero-stat"><span>Operasional</span><strong>Dalam satu sistem</strong></div>
             <div className="material-tag"><i /><span>Gypsum • Hollow • Compound</span></div>
           </div>
