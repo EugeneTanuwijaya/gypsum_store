@@ -1,5 +1,6 @@
 import { slides } from './data/slides'
 import DeckNavigation from './components/DeckNavigation'
+import Slides from './components/slides/Slides'
 import { usePresentation } from './hooks/usePresentation'
 
 export default function App() {
@@ -7,18 +8,7 @@ export default function App() {
   return (
     <div id="presentation-shell">
       <main id="presentation" aria-label="Presentasi POS Toko Gypsum">
-        {slides.map((slide, index) => (
-          <section
-            id={slide.id}
-            key={slide.id}
-            ref={(node) => presentation.registerSlide(slide.id, node)}
-            className="slide"
-            data-active={presentation.activeIndex === index}
-          >
-            <span>{slide.number}</span>
-            <h2>{slide.label}</h2>
-          </section>
-        ))}
+        <Slides activeId={slides[presentation.activeIndex].id} registerSlide={presentation.registerSlide} />
       </main>
       <DeckNavigation
         activeIndex={presentation.activeIndex}
