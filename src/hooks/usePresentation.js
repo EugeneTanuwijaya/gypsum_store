@@ -3,7 +3,7 @@ import { clampIndex, getHashIndex, getNavigationDelta, isInteractiveTarget } fro
 
 export function usePresentation(items, fullscreenTarget = null) {
   const startupIndex = useRef(getHashIndex(window.location.hash, items))
-  const initialScrollComplete = useRef(false)
+  const initialPositioning = useRef(true)
   const [activeIndex, setActiveIndex] = useState(startupIndex.current)
   const [isFullscreen, setIsFullscreen] = useState(Boolean(document.fullscreenElement))
   const nodes = useRef(new Map())
@@ -19,20 +19,13 @@ export function usePresentation(items, fullscreenTarget = null) {
     node.dataset.slideIndex = String(items.findIndex((item) => item.id === id))
     nodes.current.set(id, node)
     observer.current?.observe(node)
-    if (!initialScrollComplete.current && items[startupIndex.current]?.id === id) {
-      initialScrollComplete.current = true
-      queueMicrotask(() => node.scrollIntoView({
-        behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-        block: 'start',
-      }))
-    }
   }, [items])
 
-  const goTo = useCallback((index) => {
+  const goTo = useCallback((index, behaviorOverride) => {
     const next = clampIndex(index, items.length)
     const node = nodes.current.get(items[next].id)
     node?.scrollIntoView({
-      behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      behavior: behaviorOverride || (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'),
       block: 'start',
     })
   }, [items])
@@ -41,8 +34,26 @@ export function usePresentation(items, fullscreenTarget = null) {
   const goPrevious = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo])
 
   useEffect(() => {
+    const nextFrame = window.requestAnimationFrame || ((callback) => setTimeout(callback, 0))
+    const cancelFrame = window.cancelAnimationFrame || clearTimeout
+    let secondFrame
+    const firstFrame = nextFrame(() => {
+      secondFrame = nextFrame(() => {
+        goTo(startupIndex.current, 'auto')
+        setActiveIndex(startupIndex.current)
+        initialPositioning.current = false
+      })
+    })
+    return () => {
+      cancelFrame(firstFrame)
+      if (secondFrame) cancelFrame(secondFrame)
+    }
+  }, [goTo])
+
+  useEffect(() => {
     if (!('IntersectionObserver' in window)) return undefined
     observer.current = new IntersectionObserver((entries) => {
+      if (initialPositioning.current) return
       const visible = entries
         .filter((entry) => entry.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]

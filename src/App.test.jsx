@@ -35,4 +35,10 @@ describe('App integration', () => {
     expect(css).toMatch(/\.inventory-table\s*\{[^}]*display:\s*none/s)
     expect(css).toMatch(/\.inventory-cards\s*\{[^}]*display:\s*grid/s)
   })
+
+  it('declares an inline favicon so browsers do not request a missing asset', () => {
+    const html = readFileSync('index.html', 'utf8')
+    expect(html).toContain('rel="icon"')
+    expect(html).toContain('data:image/svg+xml')
+  })
 })

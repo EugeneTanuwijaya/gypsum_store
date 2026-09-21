@@ -4,13 +4,14 @@ import { slides } from '../data/slides'
 import { usePresentation } from './usePresentation'
 
 class ObserverStub {
-  constructor(callback) { this.callback = callback }
+  constructor(callback) { this.callback = callback; ObserverStub.latest = this }
   observe() {}
   disconnect() {}
 }
 
 describe('usePresentation', () => {
   beforeEach(() => {
+    ObserverStub.latest = null
     vi.stubGlobal('IntersectionObserver', ObserverStub)
     window.history.replaceState({}, '', '/#inventory')
   })
@@ -43,7 +44,15 @@ describe('usePresentation', () => {
     const inventory = document.createElement('section')
     inventory.scrollIntoView = vi.fn()
     act(() => result.current.registerSlide('inventory', inventory))
-    await waitFor(() => expect(inventory.scrollIntoView).toHaveBeenCalledOnce())
+    await waitFor(() => expect(inventory.scrollIntoView).toHaveBeenCalledWith({ behavior: 'auto', block: 'start' }))
+  })
+
+  it('does not let restored scroll observations override the startup hash', () => {
+    const { result } = renderHook(() => usePresentation(slides))
+    const restoredSection = document.createElement('section')
+    restoredSection.dataset.slideIndex = '11'
+    act(() => ObserverStub.latest.callback([{ isIntersecting: true, intersectionRatio: 1, target: restoredSection }]))
+    expect(result.current.activeIndex).toBe(4)
   })
 
   it('ignores keyboard navigation from interactive controls', () => {
