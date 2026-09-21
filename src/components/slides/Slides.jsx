@@ -123,7 +123,7 @@ export default function Slides({ activeId, registerSlide }) {
 
       <Slide {...common('pricing', '14', 'Estimasi', 'Investasi untuk', { titleAccent: 'Operasional Lebih Rapi', className: 'tone-price' })}>
         <div className="pricing-layout">
-          <div className="price-main reveal"><span>POS TOKO GYPSUM</span><strong>Rp6.000.000 – Rp8.000.000</strong><em>Sekali bayar</em><p>Estimasi akhir dapat disesuaikan dengan kebutuhan dan scope final.</p></div>
+          <div className="price-main reveal"><span>POS TOKO GYPSUM</span><strong>Rp4.000.000 – Rp8.000.000</strong><em>Sekali bayar</em><p>Estimasi akhir dapat disesuaikan dengan kebutuhan dan scope final.</p></div>
           <div className="price-includes reveal"><small>SUDAH TERMASUK</small><CheckList compact items={['POS','Inventory','Customer','Supplier','Pembelian','Piutang','Pengiriman','Laporan','User Management','Deployment awal']}/></div>
         </div>
         <div className="hosting-row reveal"><article><Icon name="local"/><div><span>Offline</span><strong>Tanpa biaya hosting bulanan</strong></div></article><article><Icon name="cloud"/><div><span>Online</span><strong>Server + domain ± Rp1.500.000 – Rp2.500.000 / tahun</strong></div></article></div>

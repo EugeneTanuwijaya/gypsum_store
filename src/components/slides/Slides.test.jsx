@@ -22,7 +22,7 @@ describe('Slides', () => {
     expect(screen.getAllByText('Gypsum Knauf').length).toBeGreaterThan(0)
     expect(screen.getAllByText('Gypsum Jayaboard').length).toBeGreaterThan(0)
     expect(screen.getAllByText('Hollow 4 × 4').length).toBeGreaterThan(0)
-    expect(screen.getByText('Rp6.000.000 – Rp8.000.000')).toBeInTheDocument()
+    expect(screen.getByText('Rp4.000.000 – Rp8.000.000')).toBeInTheDocument()
     expect(screen.getByText('Simple First.')).toBeInTheDocument()
     expect(screen.getByText('Grow When Needed.')).toBeInTheDocument()
   })
